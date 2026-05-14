@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Google OAuth Callback</title>
+</head>
+<body>
+
+<script>
+  (function () {
+    try {
+      // Ambil access token dari URL hash
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+
+      const accessToken = params.get('access_token');
+
+      // Jika token tidak ada
+      if (!accessToken) {
+        window.opener.postMessage({
+          type: 'GOOGLE_AUTH_ERROR',
+          message: 'Access token tidak ditemukan.'
+        }, 'https://muslims2601.github.io');
+
+        window.close();
+        return;
+      }
+
+      // Ambil profile user dari Google
+      fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        headers: {
+          Authorization: 'Bearer ' + accessToken
+        }
+      })
+      .then(response => response.json())
+      .then(profile => {
+
+        // Kirim data ke parent window
+        window.opener.postMessage({
+          type: 'GOOGLE_AUTH_SUCCESS',
+          profile: {
+            email: profile.email || '',
+            name: profile.name || '',
+            googleId: profile.sub || '',
+            picture: profile.picture || ''
+          }
+        }, 'https://muslims2601.github.io');
+
+        // Tutup popup
+        window.close();
+      })
+      .catch(error => {
+        window.opener.postMessage({
+          type: 'GOOGLE_AUTH_ERROR',
+          message: 'Gagal mengambil profile Google.'
+        }, 'https://muslims2601.github.io');
+
+        window.close();
+      });
+
+    } catch (err) {
+
+      window.opener.postMessage({
+        type: 'GOOGLE_AUTH_ERROR',
+        message: 'OAuth callback error.'
+      }, 'https://muslims2601.github.io');
+
+      window.close();
+    }
+  })();
+</script>
+
+</body>
+</html>
