@@ -1,12 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh"
-        content="0; url=https://script.google.com/macros/s/AKfycbz8pB0w3OlvlJ_bksyOKlTLuGo4xLlS_h_WC2A2lm6pKXushR5IfaS7kFwrJI0hSDAgSQ/exec">
-  <title>Redirecting...</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Issue GH Detail</title>
+  <link rel="icon" href="https://png.pngtree.com/png-clipart/20200710/original/pngtree-sea-logo-vector-png-image_4135221.jpg" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #eee;
+      overflow: hidden; /* Mencegah scroll ganda */
+    }
+
+    .iframe-container {
+      width: 100%;
+      height: 100dvh; /* Menggunakan dvh agar pas di mobile browser */
+      overflow: hidden;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
 </head>
 <body>
-  Redirecting...
+  <div class="iframe-container">
+    <iframe
+      id="app"
+      src="https://script.google.com/macros/s/AKfycby52RDLsIAqIOFF7VUrl76pzUP8-hF6N63mSjhbbKQJhmO8Lw51cbrs2fUZ7OfwbGGpTg/exec?page=dashboard"
+      scrolling="yes"
+      allowfullscreen="true"
+      webkitallowfullscreen="true"
+      mozallowfullscreen="true"
+      allow="fullscreen; camera; microphone; display-capture; geolocation;">
+    </iframe>
+  </div>
 </body>
 </html>
